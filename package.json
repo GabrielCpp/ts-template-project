@@ -1,0 +1,50 @@
+{
+  "name": "@thayl/typescript-boilerplate",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "Gabriel Côté",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "test": "jest --config jest.config.js --runInBand --no-cache",
+    "build:dev": "yarn run clean && tsc-watch --compiler ttypescript/bin/tsc --onSuccess \"node --enable-source-maps ./dist/src/index.js\"",
+    "build": "yarn run clean && node_modules/ttypescript/bin/tsc",
+    "clean": "rimraf dist",
+    "start": "node --enable-source-maps ./dist/src/index.js",
+    "generate:env": "node ./generate-local-config.js",
+    "lint:fix": "eslint './src/**/*.{ts,tsx}' --quiet --fix"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@types/jest": "^26.0.9",
+    "@types/lodash": "^4.14.155",
+    "@types/node": "^12.6.8",
+    "@types/uuid": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "@zerollup/ts-transform-paths": "^1.7.18",
+    "bufferutil": "^4.0.1",
+    "canvas": "^2.5.0",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.0.1",
+    "moq.ts": "^6.3.3",
+    "prettier": "^2.1.1",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^26.0.0",
+    "ts-node": "^9.0.0",
+    "tsc-watch": "^4.2.3",
+    "ttypescript": "^1.5.11",
+    "typescript": "^3.6.2",
+    "utf-8-validate": "^5.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.15"
+  }
+}
