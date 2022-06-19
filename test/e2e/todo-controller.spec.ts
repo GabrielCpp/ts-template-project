@@ -31,8 +31,8 @@ describe('todo controller', () => {
   });
 
   afterEach(async () => {
-    await app.close();
     await mockServer.stop();
+    await app?.close();
   });
 
   it('get all todos', async () => {

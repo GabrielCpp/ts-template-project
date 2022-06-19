@@ -1,6 +1,6 @@
 import { Todo } from '@/core/domains';
 import { Settings } from '@/settings';
-import axios from 'axios';
+import fetch from 'node-fetch';
 
 export class BlogApi {
   private baseUrl: string;
@@ -10,10 +10,16 @@ export class BlogApi {
   }
 
   async publish(todo: Todo) {
-    await axios.post(`${this.baseUrl}/publish/todo`, todo, {
+    const response = await fetch(`${this.baseUrl}/publish/todo`, {
+      method: 'POST',
+      body: JSON.stringify(todo),
       headers: {
         Accept: 'application/json',
       },
     });
+
+    if (!response.ok) {
+      throw new Error('Failed to publish todo');
+    }
   }
 }

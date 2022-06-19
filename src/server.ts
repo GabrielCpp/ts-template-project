@@ -22,7 +22,7 @@ export async function build(
     { parseAs: 'string' },
     function (req, body, done) {
       try {
-        var json = JSON.parse(body as string);
+        const json = JSON.parse(body as string);
         done(null, json);
       } catch (err) {
         const error = err as HttpError;

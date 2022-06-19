@@ -9,25 +9,24 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "jest --config jest.config.ts --runInBand --no-cache",
-    "build:dev": "yarn clean && tsc-watch --compiler ttypescript/bin/tsc --onSuccess \"node --enable-source-maps ./dist/src/index.js\"",
-    "build": "yarn clean && node_modules/ttypescript/bin/tsc",
-    "clean": "rimraf dist",
+    "test": "jest --config jest.config.ts --runInBand --no-cache --detectOpenHandles",
+    "test:docker": "docker build -t $(basename $PWD)-test --target test . && docker run --network \"$(basename $PWD)_backend\" $(basename $PWD)-test",
+    "build:dev": "./dev/clean.mjs && tsc-watch --compiler ttypescript/bin/tsc --onSuccess \"node --enable-source-maps ./dist/src/index.js\"",
+    "build": "./dev/clean.mjs && ./node_modules/ttypescript/bin/tsc",
     "start": "node --enable-source-maps ./dist/src/index.js",
-    "generate:env": "node ./generate-local-config.js",
+    "clean": "./dev/clean.mjs",
+    "setup": "./dev/setup.mjs",
     "lint:fix": "eslint './src/**/*.{ts,tsx}' --quiet --fix",
-    "db:migrate": "yarn ts-node --transpile-only ./node_modules/typeorm/cli.js  migration:run -d ./src/migrations/datasource.js"
+    "db:migrate": "npx ts-node --transpile-only ./node_modules/typeorm/cli.js  migration:run -d ./src/migrations/datasource.js"
   },
   "peerDependencies": {},
   "devDependencies": {
     "@types/jest": "^28.1.1",
     "@types/lodash": "^4.14.155",
     "@types/node": "^18.0.0",
-    "@types/uuid": "^8.0.0",
+    "@types/node-fetch": "^2.6.2",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
-    "bufferutil": "^4.0.1",
-    "canvas": "^2.5.0",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.22.0",
@@ -36,22 +35,21 @@
     "mockttp": "^3.1.0",
     "moq.ts": "^9.0.2",
     "prettier": "^2.7.1",
-    "rimraf": "^3.0.0",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
     "tsc-watch": "^5.0.3",
     "ttypescript": "^1.5.11",
     "typescript": "^4.7.4",
     "typescript-transform-paths": "^3.3.1",
-    "utf-8-validate": "^5.0.2"
+    "zx": "^7.0.0"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.23.5",
-    "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "fastify": "^4.0.2",
     "inversify": "^6.0.1",
     "lodash": "^4.17.21",
+    "node-fetch": "2",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.6"
