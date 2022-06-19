@@ -1,4 +1,3 @@
-import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { config } from 'dotenv';
 import fastify from 'fastify';
 import { Container } from 'inversify';
@@ -14,7 +13,7 @@ interface HttpError extends Error {
 export async function build(override: (c: Container) => void=noop,opts={logger: true}) {
   config()
   const container = await buildContainer(override)
-  const server = fastify(opts).withTypeProvider<TypeBoxTypeProvider>();
+  const server = fastify(opts);
   server.addContentTypeParser('application/json', { parseAs: 'string' }, function (req, body, done) {
     try {
       var json = JSON.parse(body as string)

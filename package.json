@@ -46,7 +46,6 @@
     "utf-8-validate": "^5.0.2"
   },
   "dependencies": {
-    "@fastify/type-provider-typebox": "^1.0.0",
     "@sinclair/typebox": "^0.23.5",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",

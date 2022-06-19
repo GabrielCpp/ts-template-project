@@ -327,11 +327,6 @@
   dependencies:
     fast-json-stringify "^4.2.0"
 
-"@fastify/type-provider-typebox@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@fastify/type-provider-typebox/-/type-provider-typebox-1.0.0.tgz#cbf550cfba29cec8ac3a06c672caddfb7e61dd03"
-  integrity sha512-PPg4mKXyXfKRM/KTa2HY04Xta2+fcVmHd6XjmzCdws32dutG0raExeQWhhzVftQMuYP62f6VGXRBOQBnpCBJ7w==
-
 "@graphql-tools/merge@8.2.14":
   version "8.2.14"
   resolved "https://registry.yarnpkg.com/@graphql-tools/merge/-/merge-8.2.14.tgz#44811e5453f5515d9537bd1b64f0f0cfe6313a45"
