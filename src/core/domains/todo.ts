@@ -1,25 +1,24 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Todo {
-    @PrimaryGeneratedColumn()
-    id: number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    summary: string
+  @Column()
+  summary: string;
 
-    @Column()
-    content: string
+  @Column()
+  content: string;
 }
 
-export function createTodo(todo: Partial<Todo>): Todo { 
-  const result = new Todo()
-  if(todo.id) {
-    result.id = todo.id
+export function createTodo(todo: Partial<Todo>): Todo {
+  const result = new Todo();
+  if (todo.id) {
+    result.id = todo.id;
   }
 
-  result.summary = todo.summary || ''
-  result.content = todo.content || ''
+  result.summary = todo.summary || '';
+  result.content = todo.content || '';
   return result;
 }

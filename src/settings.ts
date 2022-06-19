@@ -1,4 +1,3 @@
-
 export interface Settings {
-  blogBaseUrl: string
+  blogBaseUrl: string;
 }
