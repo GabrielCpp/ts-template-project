@@ -1,26 +1,12 @@
 export default {
   verbose: true,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  moduleDirectories: ['node_modules', 'bower_components', 'shared'],
+  moduleDirectories: ['node_modules'],
   testEnvironment: 'node',
   extensionsToTreatAsEsm: ['.ts'],
   globals: {
     'ts-jest': {
       useESM: true,
-      astTransformers: {
-        before: [
-          {
-            path: 'typescript-transform-paths',
-            options: {
-              baseUrl: '.',
-              afterDeclarations: true,
-              paths: {
-                '*': ['*'],
-              },
-            },
-          },
-        ],
-      },
     },
   },
   rootDir: '',
