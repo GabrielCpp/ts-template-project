@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
+    "target": "ESNext",
     "module": "commonjs",
     "lib": [
-      "ES2019"
+      "ESNext"
     ],
+    "incremental": true,
     "allowJs": true,
     "checkJs": true,
     "jsx": "preserve",
@@ -27,7 +28,8 @@
     "typeRoots": [],
     "types": [
       "node",
-      "jest"
+      "@types/jest",
+      "reflect-metadata"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -36,7 +38,17 @@
     "plugins": [
       {
         "baseUrl": ".",
-        "transform": "@zerollup/ts-transform-paths",
+        "transform": "typescript-transform-paths", 
+        "paths": {
+          "*": [
+            "*"
+          ]
+        }
+      },
+      {
+        "baseUrl": ".",
+        "transform": "typescript-transform-paths", 
+        "afterDeclarations": true ,
         "paths": {
           "*": [
             "*"

@@ -1,8 +1,14 @@
-module.exports = {
+export default {
     verbose: true,
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
     moduleDirectories: ['node_modules', 'bower_components', 'shared'],
     testEnvironment: 'node',
+    extensionsToTreatAsEsm: ['.ts'],
+    globals: {
+      'ts-jest': {
+        useESM: true,
+      },
+    },
     rootDir: '',
     "roots": [
         "<rootDir>/src",
@@ -14,5 +20,6 @@ module.exports = {
     },
     moduleNameMapper: {
         '^@/(.*)$': '<rootDir>/src/$1',
+        '^(\\.{1,2}/.*)\\.js$': '$1',
     },
 };
