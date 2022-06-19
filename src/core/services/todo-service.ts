@@ -1,23 +1,26 @@
 import { BlogApi } from "@/io/external-api/blog-api";
-import { DataSource } from "typeorm";
+import { Repository } from "typeorm";
 import { NewTodo, Todo } from "../domains";
 import { createTodo } from "../domains/todo";
 
 export class TodoService {
-  constructor(private db: DataSource, private blogApi: BlogApi) {}
+  constructor(private todoRepository: Repository<Todo>, private blogApi: BlogApi) {
+
+  }
 
   async getTodos(): Promise<Todo[]> {
-    const todoRepository = this.db.getRepository(Todo)
-    return await todoRepository.findBy({})
+    return await this.todoRepository.findBy({})
   }
 
   async addTodo(newToto: NewTodo): Promise<Todo> {
-    const todoRepository = this.db.getRepository(Todo)
-    const todo = await todoRepository.save(createTodo(newToto))
+    const todo = await this.todoRepository.save(createTodo(newToto))
     return todo
   }
 
-  async publishTodo(todo: Todo) {
+  async publishTodo(todoId: number) {
+    const todo = await this.todoRepository.findOneOrFail({
+      where: {id: todoId}
+    })
     const obfuscatdTodo = createTodo({...todo, content: todo.content.replace('sensitive-information', '***')})
     await this.blogApi.publish(obfuscatdTodo)
   }

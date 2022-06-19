@@ -1,22 +1,20 @@
 import { Todo } from "@/core/domains";
 import { Settings } from "@/settings";
-import fetch from "axios";
+import axios from "axios";
 
 
 export class BlogApi {
-  baseUrl: string 
+  private baseUrl: string 
 
   constructor(settings: Settings) {
     this.baseUrl = settings.blogBaseUrl
   }
 
   async publish(todo: Todo) {
-    const response = await fetch(`${this.baseUrl}/publish/todo`,{
-      method: 'POST',
+    await axios.post(`${this.baseUrl}/publish/todo`,todo, {
       headers: {
         'Accept': 'application/json'
-      },
-      data: JSON.stringify(todo)
+      }
     })
   }
 }

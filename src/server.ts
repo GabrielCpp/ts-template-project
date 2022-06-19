@@ -1,42 +1,20 @@
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
-import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
 import { config } from 'dotenv';
 import fastify from 'fastify';
+import { Container } from 'inversify';
+import { noop } from 'lodash';
 import { DataSource } from 'typeorm';
-import { todoController } from './app/controllers/todo-controller';
+import { TodoController } from './app/controllers/todo-controller';
 import { buildContainer } from './app/modules';
 
-const ajv = addFormats(new Ajv({}), [
-  'date-time',
-  'time',
-  'date',
-  'email',
-  'hostname',
-  'ipv4',
-  'ipv6',
-  'uri',
-  'uri-reference',
-  'uuid',
-  'uri-template',
-  'json-pointer',
-  'relative-json-pointer',
-  'regex',
-])
-  .addKeyword('kind')
-  .addKeyword('modifier');
-  
 interface HttpError extends Error {
   statusCode: number
 }
 
-export async function build(opts={logger: true}) {
+export async function build(override: (c: Container) => void=noop,opts={logger: true}) {
   config()
-  const container = await buildContainer()
+  const container = await buildContainer(override)
   const server = fastify(opts).withTypeProvider<TypeBoxTypeProvider>();
-  server.setValidatorCompiler(({ schema, method, url, httpPart }) => {
-    return ajv.compile(schema);
-  });
   server.addContentTypeParser('application/json', { parseAs: 'string' }, function (req, body, done) {
     try {
       var json = JSON.parse(body as string)
@@ -49,7 +27,7 @@ export async function build(opts={logger: true}) {
   })
 
   server.decorate('container', container)
-  server.register(todoController,{
+  server.register(TodoController, {
     prefix: '/api'
   })
 

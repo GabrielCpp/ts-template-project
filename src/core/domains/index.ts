@@ -1,3 +1,3 @@
-export { NewTodo } from './new-todo';
-export { Todo } from './todo';
+export { createNewTodo, NewTodo } from './new-todo';
+export { createTodo, Todo } from './todo';
 

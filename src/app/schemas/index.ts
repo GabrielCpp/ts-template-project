@@ -1,2 +1,2 @@
-export { NewTodoSchema } from './todo-schema';
+export { NewTodoSchema, PublishTodoParam, PublishTodoParamSchema } from './todo-schema';
 
