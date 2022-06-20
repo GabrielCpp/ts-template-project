@@ -15,7 +15,7 @@
     "build": "./dev/clean.mjs && ./node_modules/ttypescript/bin/tsc",
     "start": "node --enable-source-maps ./dist/src/index.js",
     "clean": "./dev/clean.mjs",
-    "setup": "./dev/setup.mjs",
+    "setup": "./dev/setup.mjs && ./dev/reset-compose.mjs",
     "lint:fix": "eslint './src/**/*.{ts,tsx}' --quiet --fix",
     "db:migrate": "npx ts-node --transpile-only ./node_modules/typeorm/cli.js  migration:run -d ./src/migrations/datasource.js"
   },

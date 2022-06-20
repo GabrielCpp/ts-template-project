@@ -11,19 +11,20 @@ const settings = [
   `DB_NAME=dev`,
   `BLOG_BASE_URL=https://test.xyz`,
   'DB_HOST=127.0.0.1'
-]
+].join('\n')
 const test_settings= [
   `DB_USERNAME=test`,
   `DB_PASSWORD=test`,
   `DB_NAME=test`,
   `BLOG_BASE_URL=https://test.xyz`,
   'DB_HOST=postgres'
-]
-console.log(writeTestSettings)
+].join('\n')
 
 if(writeTestSettings == '--test') {
-  await fs.writeFile('.env', test_settings.join('\n'));
+  await fs.writeFile('.env', test_settings);
 }
 else {
-  await fs.writeFile('.env', settings.join('\n'));
+  await fs.writeFile('.env', settings);
+  await fs.writeFile('.env.test', test_settings);
 }
+
